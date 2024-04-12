@@ -4,7 +4,7 @@ import math
 import random
 import time
 
-class NavEnv:
+class SimEnv:
 
     def __init__(s):
         s.player_x = 0
@@ -19,8 +19,8 @@ class NavEnv:
         s.goal_direction = (0, 0)  # Initial direction of the goal
         s.direction_change_timer = 0
         s.direction_change_interval = 60  # Interval for changing direction (in frames)
-        s.constant_goal_speed_increment = 0.002
-        s.level_up_goal_speed_increment = 0.2
+        s.constant_goal_speed_increment = 0.000
+        s.level_up_goal_speed_increment = 0.0
         
         s.base_player_speed = 8
         s.player_acceleration = 0.6
@@ -107,41 +107,41 @@ class NavEnv:
 #----------UNCOMMENT FOR DYANMIC GOAL MOVEMENT -----------------------------------------------------
 #####################################################################################################
 
-            # Update goal position and direction
-            if s.direction_change_timer <= 0:
-                # Change direction
-                s.goal_direction = (random.randint(-2, 2), random.randint(-2, 2))
-                # Reset direction change timer
-                s.direction_change_timer = s.direction_change_interval
-            else:
-                # Continue in the current direction
-                s.goal_x += s.goal_direction[0] * s.goal_speed
-                s.goal_y += s.goal_direction[1] * s.goal_speed
-                s.direction_change_timer -= 1
+            # # Update goal position and direction
+            # if s.direction_change_timer <= 0:
+            #     # Change direction
+            #     s.goal_direction = (random.randint(-2, 2), random.randint(-2, 2))
+            #     # Reset direction change timer
+            #     s.direction_change_timer = s.direction_change_interval
+            # else:
+            #     # Continue in the current direction
+            #     s.goal_x += s.goal_direction[0] * s.goal_speed
+            #     s.goal_y += s.goal_direction[1] * s.goal_speed
+            #     s.direction_change_timer -= 1
 
-            # Ensure the goal stays within the screen bounds with a margin inside the borders
-            goal_margin = 25  # Adjust this value as needed
-            s.goal_x = max(border_width + goal_margin, min(s.goal_x, screen_width - border_width - goal_margin))
-            s.goal_y = max(border_width + goal_margin, min(s.goal_y, screen_height - border_width - goal_margin))
+            # # Ensure the goal stays within the screen bounds with a margin inside the borders
+            # goal_margin = 25  # Adjust this value as needed
+            # s.goal_x = max(border_width + goal_margin, min(s.goal_x, screen_width - border_width - goal_margin))
+            # s.goal_y = max(border_width + goal_margin, min(s.goal_y, screen_height - border_width - goal_margin))
 
-            # Increase goal speed gradually
-            s.goal_speed += s.constant_goal_speed_increment
+            # # Increase goal speed gradually
+            # s.goal_speed += s.constant_goal_speed_increment
 
-            # Check if the goal position is changing
-            current_goal_position = (s.goal_x, s.goal_y)
-            if current_goal_position == s.prev_goal_position:
-                # Increment the timer if the position remains the same
-                s.position_change_timer += 1
-            else:
-                # Reset the timer if the position changes
-                s.position_change_timer = 0
-                # Update the previous position
-                s.prev_goal_position = current_goal_position
+            # # Check if the goal position is changing
+            # current_goal_position = (s.goal_x, s.goal_y)
+            # if current_goal_position == s.prev_goal_position:
+            #     # Increment the timer if the position remains the same
+            #     s.position_change_timer += 1
+            # else:
+            #     # Reset the timer if the position changes
+            #     s.position_change_timer = 0
+            #     # Update the previous position
+            #     s.prev_goal_position = current_goal_position
 
-            # Check if the goal is stuck and change direction if necessary
-            if s.position_change_timer >= 3:  #threshold as needed
-                s.goal_direction = (random.randint(-2, 2), random.randint(-2, 2))
-                s.position_change_timer = 0
+            # # Check if the goal is stuck and change direction if necessary
+            # if s.position_change_timer >= 3:  #threshold as needed
+            #     s.goal_direction = (random.randint(-2, 2), random.randint(-2, 2))
+            #     s.position_change_timer = 0
             
 #####################################################################################################            
 #----------DYANMIC GOAL MOVEMENT SECTION ENDS-----------------------------------------------------            
@@ -187,5 +187,5 @@ class NavEnv:
 
 
 if __name__ == "__main__":
-    navEnv = NavEnv()
+    navEnv = SimEnv()
     navEnv.run_game()
