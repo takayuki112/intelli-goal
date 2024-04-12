@@ -11,18 +11,18 @@ env = gym.make('CartPole-v1', render_mode='human')
 # Wrap it for use with Stable Baselines3
 env = DummyVecEnv([lambda: env])
 
-# # Initialize the agent
-# model = PPO("MlpPolicy", env, verbose=1)
+# Initialize the agent
+model = PPO("MlpPolicy", env, verbose=1)
 
-# # Train the agent
-# model.learn(total_timesteps=20000)
+# Train the agent
+model.learn(total_timesteps=20000)
 
-# # Evaluate the trained agent
-# mean_reward, std_reward = evaluate_policy(model, model.get_env(), n_eval_episodes=10)
-# print(f"Mean reward: {mean_reward} +/- {std_reward}")
+# Evaluate the trained agent
+mean_reward, std_reward = evaluate_policy(model, model.get_env(), n_eval_episodes=10)
+print(f"Mean reward: {mean_reward} +/- {std_reward}")
 
-# # Saving the model
-# model.save("ppo_cartpole")
+# Saving the model
+model.save("ppo_cartpole")
 
 # Load the model
 model = PPO.load("ppo_cartpole")
