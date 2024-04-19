@@ -99,14 +99,14 @@ class IntelliGoal(gym.Env):
     # Define do_action method
     def do_action(s, action):
         if not s.action_space.contains(action):
-            print("Invalid Action")
+            print("Greedy Action")
         
         s.prev_distance = math.sqrt((s.player_x - s.goal_x) ** 2 + (s.player_y - s.goal_y) ** 2)
         
         # consider origin on top left of screen (x++ means move right, y++ means move down)
         def do_action(s, action):
             if not s.action_space.contains(action):
-                print("Invalid Action")
+                print("Greedy Action")
         
         s.prev_distance = math.sqrt((s.player_x - s.goal_x) ** 2 + (s.player_y - s.goal_y) ** 2)
         
